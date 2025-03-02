@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 const colorRed = Color.fromRGBO(216, 64, 64, 1);
 const colorGreen = Color.fromRGBO(137, 172, 70, 1);
 const colorWhite = Color.fromRGBO(255, 255, 255, 1);
 const colorDarkBlue = Color.fromRGBO(45, 51, 107, 1);
 
+// application screen background function:
+screenBackground(context) {
+  return SvgPicture.asset(
+    "assets/images/screen-back.svg",
+    alignment: Alignment.center,
+    width: MediaQuery.of(context).size.width,
+    height: MediaQuery.of(context).size.height,
+    fit: BoxFit.cover,
+  );
+}
+
+// application input decoration:
 InputDecoration appInputDecoration(label) {
   return InputDecoration(
     focusedBorder: const OutlineInputBorder(

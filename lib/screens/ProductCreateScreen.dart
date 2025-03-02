@@ -16,6 +16,7 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
       appBar: AppBar(title: Text("Create Product"), centerTitle: true),
       body: Stack(
         children: [
+          screenBackground(context),
           Container(
             child: SingleChildScrollView(
               padding: EdgeInsets.all(20),
