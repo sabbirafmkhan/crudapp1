@@ -46,7 +46,29 @@ DecoratedBox appDropDownStyle(child) {
   );
 }
 
-// application Button decoration:
+// application ElevatedButton decoration:
 ButtonStyle appButtonStyle() {
-  return ButtonStyle();
+  return ElevatedButton.styleFrom(
+    elevation: 1,
+    padding: EdgeInsets.all(0),
+    backgroundColor: Colors.transparent,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+  );
+}
+
+Ink successButtonChild(buttonName) {
+  return Ink(
+    decoration: BoxDecoration(
+      color: colorGreen,
+      borderRadius: BorderRadius.circular(6),
+    ),
+    child: Container(
+      height: 45,
+      alignment: Alignment.center,
+      child: Text(
+        buttonName,
+        style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
+      ),
+    ),
+  );
 }

@@ -64,8 +64,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                   ),
                   Container(
                     child: ElevatedButton(
+                      style: appButtonStyle(),
                       onPressed: () {},
-                      child: Text("Create"),
+                      child: successButtonChild("Create"),
                     ),
                   ),
                 ],
