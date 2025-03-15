@@ -24,6 +24,24 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
     });
   }
 
+  formOnSubmit() {
+    if (formValues["Img"]!.length == 0) {
+      errorToast("Please enter product image");
+    } else if (formValues["ProductCode"]!.length == 0) {
+      errorToast("Please enter product code");
+    } else if (formValues["ProductName"]!.length == 0) {
+      errorToast("Please enter product name");
+    } else if (formValues["Qty"]!.length == 0) {
+      errorToast("Please select quantity");
+    } else if (formValues["TotalPrice"]!.length == 0) {
+      errorToast("Please enter total price");
+    } else if (formValues["UnitPrice"]!.length == 0) {
+      errorToast("Please enter unit price");
+    } else {
+      //data api
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +109,9 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                   Container(
                     child: ElevatedButton(
                       style: appButtonStyle(),
-                      onPressed: () {},
+                      onPressed: () {
+                        formOnSubmit();
+                      },
                       child: successButtonChild("Create"),
                     ),
                   ),
