@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:crudapp1/style/style.dart';
 
 class ProductCreateScreen extends StatefulWidget {
