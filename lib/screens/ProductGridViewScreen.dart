@@ -1,4 +1,6 @@
 import 'package:crudapp1/RestApi/RestClient.dart';
+import 'package:crudapp1/screens/ProductCreateScreen.dart';
+import 'package:crudapp1/screens/ProductUpdateScreen.dart';
 import 'package:crudapp1/style/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +62,13 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
     );
   }
 
+  updateItem(context, productItem) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (builder) => ProductUpdateScreen(productItem)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,10 +114,16 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
                                             MainAxisAlignment.end,
                                         children: [
                                           OutlinedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              updateItem(
+                                                context,
+                                                productList[index],
+                                              );
+                                            },
                                             child: Icon(
                                               CupertinoIcons
                                                   .ellipsis_vertical_circle,
+                                              color: Colors.green,
                                               size: 15,
                                             ),
                                           ),
@@ -121,6 +136,7 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
                                             },
                                             child: Icon(
                                               CupertinoIcons.delete,
+                                              color: Colors.red,
                                               size: 15,
                                             ),
                                           ),
@@ -137,6 +153,15 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
                     ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (builder) => ProductCreateScreen()),
+          );
+        },
+        child: Icon(CupertinoIcons.add),
       ),
     );
   }

@@ -39,12 +39,35 @@ Future<List> productGridViewListRequest() async {
   }
 }
 
-//// productDeleteRequest:
+// productDeleteRequest:
 Future<bool> productDeleteRequest(id) async {
   var URL = Uri.parse("https://crud.teamrabbil.com/api/v1/DeleteProduct/$id");
   var postHeader = {"Content-Type": "application/json"};
   var response = await http.get(URL, headers: postHeader);
   var resultCode = response.statusCode;
+  var resultBody = json.decode(response.body);
+
+  if (resultCode == 200 && resultBody['status'] == "success") {
+    successToast("Request Success");
+    return true;
+  } else {
+    errorToast("Request fail ! try again");
+    return false;
+  }
+}
+
+// productUpdateRequest:
+Future<bool> ProductUpdateRequest(FormValues, id) async {
+  var URL = Uri.parse("https://crud.teamrabbil.com/api/v1/UpdateProduct/$id");
+
+  var postBody = json.encode(FormValues);
+
+  var postHeader = {"Content-Type": "application/json"};
+
+  var response = await http.post(URL, headers: postHeader, body: postBody);
+
+  var resultCode = response.statusCode;
+
   var resultBody = json.decode(response.body);
 
   if (resultCode == 200 && resultBody['status'] == "success") {
