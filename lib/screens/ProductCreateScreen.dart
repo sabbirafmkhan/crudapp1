@@ -27,17 +27,17 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
   }
 
   formOnSubmit() async {
-    if (formValues["Img"]!.length == 0) {
+    if (formValues["Img"]!.isEmpty) {
       errorToast("Please enter product image");
-    } else if (formValues["ProductCode"]!.length == 0) {
+    } else if (formValues["ProductCode"]!.isEmpty) {
       errorToast("Please enter product code");
-    } else if (formValues["ProductName"]!.length == 0) {
+    } else if (formValues["ProductName"]!.isEmpty) {
       errorToast("Please enter product name");
-    } else if (formValues["Qty"]!.length == 0) {
+    } else if (formValues["Qty"]!.isEmpty) {
       errorToast("Please select quantity");
-    } else if (formValues["TotalPrice"]!.length == 0) {
+    } else if (formValues["TotalPrice"]!.isEmpty) {
       errorToast("Please enter total price");
-    } else if (formValues["UnitPrice"]!.length == 0) {
+    } else if (formValues["UnitPrice"]!.isEmpty) {
       errorToast("Please enter unit price");
     } else {
       setState(() {
@@ -134,14 +134,12 @@ class _ProductCreateScreenState extends State<ProductCreateScreen> {
                               underline: Container(),
                             ),
                           ),
-                          Container(
-                            child: ElevatedButton(
-                              style: appButtonStyle(),
-                              onPressed: () {
-                                formOnSubmit();
-                              },
-                              child: successButtonChild("Create"),
-                            ),
+                          ElevatedButton(
+                            style: appButtonStyle(),
+                            onPressed: () {
+                              formOnSubmit();
+                            },
+                            child: successButtonChild("Create"),
                           ),
                         ],
                       ),
