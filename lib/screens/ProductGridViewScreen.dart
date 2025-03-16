@@ -29,6 +29,37 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
     });
   }
 
+  deleteItem(id) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Delete Product"),
+          content: Text("Once Delete, you can't it back"),
+          actions: [
+            OutlinedButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                setState(() {
+                  loading = true;
+                });
+                await productDeleteRequest(id);
+                await callData();
+              },
+              child: Text("Yes"),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("No"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,58 +71,69 @@ class _ProductGridViewScreenState extends State<ProductGridViewScreen> {
             child:
                 loading
                     ? Center(child: CircularProgressIndicator())
-                    : GridView.builder(
-                      gridDelegate: productGridViewStyle(),
-                      itemCount: productList.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Expanded(
-                                child: Image.network(
-                                  productList[index]['Img'],
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.fromLTRB(5, 5, 5, 8),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(productList[index]['ProductName']),
-                                    SizedBox(height: 7),
-                                    Text(
-                                      "Price: ${productList[index]['UnitPrice']} BDT",
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        OutlinedButton(
-                                          onPressed: () {},
-                                          child: Icon(
-                                            CupertinoIcons
-                                                .ellipsis_vertical_circle,
-                                            size: 15,
-                                          ),
-                                        ),
-                                        SizedBox(width: 7),
-                                        OutlinedButton(
-                                          onPressed: () {},
-                                          child: Icon(
-                                            CupertinoIcons.delete,
-                                            size: 15,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                    : RefreshIndicator(
+                      onRefresh: () async {
+                        await callData();
                       },
+                      child: GridView.builder(
+                        gridDelegate: productGridViewStyle(),
+                        itemCount: productList.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: Image.network(
+                                    productList[index]['Img'],
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(5, 5, 5, 8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(productList[index]['ProductName']),
+                                      SizedBox(height: 7),
+                                      Text(
+                                        "Price: ${productList[index]['UnitPrice']} BDT",
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          OutlinedButton(
+                                            onPressed: () {},
+                                            child: Icon(
+                                              CupertinoIcons
+                                                  .ellipsis_vertical_circle,
+                                              size: 15,
+                                            ),
+                                          ),
+                                          SizedBox(width: 7),
+                                          OutlinedButton(
+                                            onPressed: () {
+                                              deleteItem(
+                                                productList[index]['_id'],
+                                              );
+                                            },
+                                            child: Icon(
+                                              CupertinoIcons.delete,
+                                              size: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
           ),
         ],
